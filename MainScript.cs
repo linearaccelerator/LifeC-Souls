@@ -76,6 +76,8 @@ public class PlayerData
     public BigDouble productionMultiplier1Cost;
     public BigDouble productionMultiplier2Cost;
 
+    public int screenResolutionIndex;
+
 
     public PlayerData()
     {
@@ -140,6 +142,8 @@ public class PlayerData
 
         productionMultiplier1Cost = 1000;
         productionMultiplier2Cost = 25000;
+
+        screenResolutionIndex = 0;
     }
 }
 
@@ -188,6 +192,18 @@ public class MainScript : MonoBehaviour
     public GameObject MainScreen;
     public GameObject Settings;
     public GameObject DLScreen;
+
+    public const int[,] screenResolutionArray = {
+        {1920, 1080},
+        {1600,  900},
+        {1536,  864},
+        {1440,  900},
+        {1366,  768},
+        {1280, 1024},
+        {1280,  800},
+        {1280,  720},
+        {1024,  768}
+    };
 
     //Start
     public void Start()
@@ -550,5 +566,14 @@ public class MainScript : MonoBehaviour
     public void FullReset()
     {
         data.FullReset();
+    }
+
+    // assign to a settings button
+    public void SwitchResolutionType()
+    {
+        if(data.screenResolutionIndex >= 8) data.screenResolutionIndex = -1;
+        data.screenResolutionIndex++;
+        int i = data.screenResolutionIndex;
+        Screen.SetResolution(screenResolutionArray[i, 0], screenResolutionArray[i, 1], true);
     }
 }
